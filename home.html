@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Chi tiết Home</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =========================
+BASE
+========================= */
+        :root {
+            --bg: #f6f4ef;
+            --card: #fff;
+            --text: #222;
+            --muted: #666;
+            --primary: #875845;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+            --radius: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* =========================
+HEADER (MATCH HOMEPAGE)
+========================= */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+        }
+
+        .logo-wrap img {
+            height: 52px;
+        }
+
+        .main-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .main-menu a:hover {
+            color: #c8a0a8;
+        }
+
+        /* =========================
+CONTAINER
+========================= */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px 16px;
+        }
+
+        /* =========================
+BACK BUTTON
+========================= */
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 14px;
+
+            background: white;
+            padding: 10px 16px;
+            border-radius: 999px;
+
+            font-weight: 600;
+            font-size: 14px;
+
+            text-decoration: none;
+            color: #333;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* =========================
+HERO IMAGE (FIX HEIGHT)
+========================= */
+        .hero-image {
+            width: 100%;
+            height: 420px;
+            /* FIX desktop bớt quá bự */
+            object-fit: cover;
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        /* =========================
+CONTENT
+========================= */
+        .home-header {
+            margin-top: 18px;
+        }
+
+        .home-header h1 {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .price {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* =========================
+SECTION
+========================= */
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        /* =========================
+AMENITIES
+========================= */
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .amenity {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 999px;
+
+            font-size: 13px;
+
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+        }
+
+        /* =========================
+GALLERY
+========================= */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: .25s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        /* =========================
+FOOTER (RESTORED HOMEPAGE STYLE)
+========================= */
+        .footer {
+            margin-top: 60px;
+            background: #c8a0a8;
+            color: white;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: auto;
+            padding: 50px 20px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            width: 90px;
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .map-wrap iframe {
+            width: 100%;
+            height: 220px;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, .3);
+            font-size: 13px;
+        }
+
+        .overnight-note {
+            font-size: 11px;
+            color: #999;
+            font-weight: 400;
+            margin-left: 4px;
+        }
+
+        /* =========================
+RESPONSIVE
+========================= */
+        @media(max-width:768px) {
+
+            .hero-image {
+                height: 280px;
+            }
+
+            .home-header h1 {
+                font-size: 24px;
+            }
+
+            .main-menu {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .map-wrap iframe {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <div class="logo-wrap">
+                <img src="/logo3caynon.png">
+            </div>
+
+            <nav class="main-menu">
+                <a href="/">Trang chủ</a>
+                <a href="/#homes">Homes</a>
+                <a href="/#contact">Liên hệ</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <div class="container">
+
+        <button class="back-btn" onclick="goBack()">← Quay lại</button>
+
+        <img id="coverImage" class="hero-image">
+
+        <div class="home-header">
+
+            <h1 id="homeName">Đang tải...</h1>
+
+            <div class="price" id="price"></div>
+
+            <p class="description" id="description"></p>
+
+        </div>
+
+        <div class="section">
+            <h2>Tiện nghi</h2>
+            <div id="amenities" class="amenities"></div>
+        </div>
+
+        <div class="section">
+            <h2>Hình ảnh</h2>
+            <div id="gallery" class="gallery"></div>
+        </div>
+
+    </div>
+
+    <!-- FULL FOOTER RESTORED -->
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <div>
+                <img src="/logo3caynon.png" class="footer-logo">
+                <p>Homestay 3 Cây Non</p>
+                <p>Không gian nghỉ dưỡng ấm cúng giữa lòng Sài Gòn.</p>
+            </div>
+
+            <div>
+                <h3>Liên hệ</h3>
+                <p>📍 23/5/18 Lê Văn Duyệt</p>
+                <p>📞 0902 932 808</p>
+            </div>
+
+            <div class="map-wrap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18..." loading="lazy">
+                </iframe>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 Homestay 3 Cây Non
+        </div>
+
+    </footer>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCH-D5mOViT1gVbL80hYmGigf3gdQ8neZg",
+            authDomain: "homestay3caynon-e00de.firebaseapp.com",
+            databaseURL: "https://homestay3caynon-e00de-default-rtdb.firebaseio.com",
+            projectId: "homestay3caynon-e00de"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const homeId = new URLSearchParams(location.search).get("id");
+
+        /* BACK FIX */
+        function goBack() {
+            if (document.referrer) {
+                history.back();
+            } else {
+                location.href = "/";
+            }
+        }
+        window.goBack = goBack;
+
+        /* LOAD DATA */
+        async function loadHome() {
+
+            const snap = await get(ref(db, `homes/${homeId}`));
+
+            if (!snap.exists()) {
+                document.body.innerHTML = "<h2>Not found</h2>";
+                return;
+            }
+
+            const home = snap.val();
+
+            document.title = home.name;
+
+            document.getElementById("homeName").textContent = home.name;
+
+            document.getElementById("price").textContent =
+                Number(home.price || 0).toLocaleString("vi-VN") + " VNĐ / đêm";
+
+            document.getElementById("description").textContent = home.description || "";
+
+            document.getElementById("coverImage").src = home.coverImage;
+
+            const amenityWrap = document.getElementById("amenities");
+            amenityWrap.innerHTML = "";
+            (home.amenities || []).forEach(a => {
+                amenityWrap.innerHTML += `<div class="amenity">✓ ${a}</div>`;
+            });
+
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = "";
+            Object.values(home.images || {}).forEach(url => {
+                gallery.innerHTML += `<img src="${url}">`;
+            });
+
+        }
+
+        loadHome();
+
+    </script>
+
+</body>
+
+</html>

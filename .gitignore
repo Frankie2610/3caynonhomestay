@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+.vercel/
+npm-debug.log*
+.vercel
+.env*
+
+lib/*.before-*.js
+
+lib/*.before-*.js

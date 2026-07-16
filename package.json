@@ -1,0 +1,19 @@
+{
+  "name": "homestay-3-cay-non-messenger-bot",
+  "version": "1.5.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check api/meta-webhook.js && node --check api/chatbot-health.js && node --check api/chatbot-debug-availability.js && node --check api/chatbot-test-alert.js && node --check lib/conversation.js && node --check lib/availability.js && node --check lib/pricing.js && node --check lib/date-time.js && node --check lib/conversation-store.js && node --check lib/conversation-control.js && node --check lib/messenger.js && node --check lib/owner-notifier.js && node --check examples/admin-chatbot-control.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.11.0",
+    "@vercel/functions": "^3.7.5",
+    "firebase-admin": "^14.1.0",
+    "luxon": "^3.7.2"
+  }
+}
