@@ -148,6 +148,10 @@
   }
 
   async function load() {
+    if (window.__H3CN_SITE_PRESENTATION__) {
+      applyConfig(window.__H3CN_SITE_PRESENTATION__);
+      return;
+    }
     try {
       const response = await fetch("/api/site-presentation", { headers: { Accept: "application/json" }, cache: "no-store" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
