@@ -125,8 +125,7 @@
 
     let first = movable[0];
     for (const node of movable.slice(1)) {
-      if (node.compareDocumentPosition(first) & Node.DOCUMENT_POSITION_FOLLOWING) continue;
-      first = node;
+      if (first.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_PRECEDING) first = node;
     }
     const marker = document.createComment("site-presentation-order");
     parent.insertBefore(marker, first);
@@ -171,8 +170,13 @@
     });
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", load, { once: true });
-  else load();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => { void load().then(reapply); }, { once: true });
+  } else {
+    void load();
+    document.addEventListener("DOMContentLoaded", reapply, { once: true });
+  }
+  window.addEventListener("load", reapply, { once: true });
   window.addEventListener("popstate", reapply);
   window.addEventListener("sitepresentation:refresh", load);
   window.__applyH3cnSitePresentation = applyConfig;
