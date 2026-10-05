@@ -1,0 +1,52 @@
+name: Verify site presentation
+
+on:
+  pull_request:
+    paths:
+      - 'site-presentation.js'
+      - 'api/site-presentation.js'
+      - 'api/site-shell.js'
+      - 'vercel.json'
+      - '.github/workflows/verify-site-presentation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax checks
+        run: |
+          node --check site-presentation.js
+          node --check api/site-presentation.js
+          node --check api/site-shell.js
+      - name: Static integration checks
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const runtime = fs.readFileSync('site-presentation.js', 'utf8');
+          const shell = fs.readFileSync('api/site-shell.js', 'utf8');
+          const api = fs.readFileSync('api/site-presentation.js', 'utf8');
+          const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+          const expected = ['hero','booking','homes','reviews','stories','about','highlights','stats'];
+          const themes = ['original','warm-japandi','tropical-boutique','midnight-luxury','coastal-calm'];
+          const checks = [
+            ['Eight safe homepage sections', expected.every(x => runtime.includes(`"${x}"`))],
+            ['Five themes including Original', themes.every(x => runtime.includes(x) && shell.includes(x))],
+            ['Server injected config', shell.includes('__H3CN_SITE_PRESENTATION__') && runtime.includes('__H3CN_SITE_PRESENTATION__')],
+            ['Sanitized public config', api.includes('sanitizeConfig') && !api.includes('updatedBy:')],
+            ['SPA shell rewrite', config.rewrites?.some(x => x.source === '/(.*)' && x.destination === '/api/site-shell')],
+            ['Shell bundles index.html', config.functions?.['api/site-shell.js']?.includeFiles === 'index.html'],
+            ['Reapply after homepage boot', runtime.includes('DOMContentLoaded') && runtime.includes('window.addEventListener("load", reapply')],
+            ['Correct DOM ordering comparison', runtime.includes('first.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_PRECEDING')]
+          ];
+          const failed = checks.filter(([, ok]) => !ok);
+          for (const [name, ok] of checks) console.log(`${ok ? 'PASS' : 'FAIL'} ${name}`);
+          if (failed.length) process.exit(1);
+          NODE

@@ -16,12 +16,16 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/api/site-shell"
     }
   ],
   "functions": {
     "api/*.js": {
       "maxDuration": 10
+    },
+    "api/site-shell.js": {
+      "maxDuration": 10,
+      "includeFiles": "index.html"
     }
   }
 }
